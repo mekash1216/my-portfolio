@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "Your Name | Full Stack Developer",
+  title: "Mekash H. | Full Stack Developer",
   description: "Angular, Next.js, .NET Full Stack Developer",
 };
 
