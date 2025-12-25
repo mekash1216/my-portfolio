@@ -46,18 +46,41 @@ export default function Hero() {
             Full Stack Developer specializing in Angular, Next.js & .NET
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-6">
+            {/* View Projects */}
             <a
               href="/projects"
-              className="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded font-medium"
+              className="group relative inline-flex items-center gap-2 
+               bg-blue-600 px-7 py-3 rounded-lg font-semibold text-white
+               shadow-lg shadow-blue-600/30
+               transition-all duration-300
+               hover:bg-blue-700 hover:-translate-y-1 hover:shadow-blue-700/40
+               focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               View Projects
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </a>
+
+            {/* View CV */}
             <a
-              href="/contact"
-              className="border border-white px-6 py-3 rounded hover:bg-white hover:text-black transition font-medium"
+              href="/cv/Mekash_H_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center gap-2
+               px-7 py-3 rounded-lg font-semibold
+               border border-white/70 text-white
+               backdrop-blur-sm
+               transition-all duration-300
+               hover:bg-white hover:text-black hover:-translate-y-1
+               hover:shadow-lg
+               focus:outline-none focus:ring-2 focus:ring-white"
             >
-              Contact Me
+              My CV
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                ↗
+              </span>
             </a>
           </div>
         </div>
