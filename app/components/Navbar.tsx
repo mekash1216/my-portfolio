@@ -1,10 +1,16 @@
 "use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // About link: scroll on homepage, otherwise navigate to homepage
+  const aboutHref = pathname === "/" ? "#about" : "/#about";
 
   const socialLinks = [
     { icon: <FaGithub />, link: "https://github.com/mekash1216" },
@@ -21,18 +27,17 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1
-          className="text-xl md:text-2xl font-extrabold
-             bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600
-             bg-clip-text text-transparent
-             cursor-pointer select-none
-             transition-all duration-300
-             hover:scale-105
-             hover:from-indigo-600 hover:via-purple-500 hover:to-blue-600"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        {/* Brand */}
+        <Link
+          href="/"
+          className="text-xl sm:text-2xl font-extrabold
+          bg-gradient-to-r from-blue-600 via-purple-500 to-indigo-600
+          bg-clip-text text-transparent
+          transition-transform duration-300 hover:scale-105"
         >
           Mekash H.
-        </h1>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center font-medium">
@@ -41,9 +46,7 @@ export default function Navbar() {
               <Link href="/">Home</Link>
             </li>
             <li className="hover:text-blue-600 transition">
-              <a href="/#about" className="hover:text-blue-600 transition">
-                About
-              </a>
+              <Link href={aboutHref}>About</Link>
             </li>
             <li className="hover:text-blue-600 transition">
               <Link href="/projects">Projects</Link>
@@ -54,10 +57,9 @@ export default function Navbar() {
           </ul>
 
           {/* Social Icons */}
-
-          <div className="flex gap-4 ml-6">
+          <div className="flex gap-4 ml-6 text-xl">
             {socialLinks.map((social, i) => (
-              <div key={i} className="relative group text-xl">
+              <div key={i} className="relative group">
                 {social.tooltip ? (
                   <>
                     <a
@@ -66,19 +68,19 @@ export default function Navbar() {
                     >
                       {social.icon}
                     </a>
-                    {/* Tooltip below the icon */}
-                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                       {social.tooltip}
                     </span>
                   </>
                 ) : (
-                  <Link
+                  <a
                     href={social.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-600 transition"
                   >
                     {social.icon}
-                  </Link>
+                  </a>
                 )}
               </div>
             ))}
@@ -86,61 +88,59 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-2xl" onClick={() => setOpen(!open)}>
+        <button
+          className="md:hidden text-2xl focus:outline-none"
+          onClick={() => setOpen(!open)}
+        >
           ☰
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white px-6 pb-4 space-y-2 animate-slide-down">
-          <Link href="/" className="block py-2 hover:text-blue-600 transition">
+        <div className="md:hidden bg-white px-4 sm:px-6 pb-6 space-y-2 border-t border-gray-200">
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="block py-2 text-base sm:text-lg hover:text-blue-600 transition"
+          >
             Home
           </Link>
+
           <Link
-            href="/about"
-            className="block py-2 hover:text-blue-600 transition"
+            href={aboutHref}
+            onClick={() => setOpen(false)}
+            className="block py-2 text-base sm:text-lg hover:text-blue-600 transition"
           >
             About
           </Link>
+
           <Link
             href="/projects"
-            className="block py-2 hover:text-blue-600 transition"
+            onClick={() => setOpen(false)}
+            className="block py-2 text-base sm:text-lg hover:text-blue-600 transition"
           >
             Projects
           </Link>
+
           <Link
             href="/contact"
-            className="block py-2 hover:text-blue-600 transition"
+            onClick={() => setOpen(false)}
+            className="block py-2 text-base sm:text-lg hover:text-blue-600 transition"
           >
             Contact
           </Link>
 
-          <div className="flex gap-4 mt-4">
+          {/* Mobile Social Icons */}
+          <div className="flex gap-4 mt-4 text-xl justify-center">
             {socialLinks.map((social, i) => (
-              <div key={i} className="relative group text-xl">
-                {social.tooltip ? (
-                  <>
-                    <a
-                      href={social.link}
-                      className="text-gray-600 hover:text-blue-600 transition"
-                    >
-                      {social.icon}
-                    </a>
-                    <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                      {social.tooltip}
-                    </span>
-                  </>
-                ) : (
-                  <Link
-                    href={social.link}
-                    target="_blank"
-                    className="text-gray-600 hover:text-blue-600 transition"
-                  >
-                    {social.icon}
-                  </Link>
-                )}
-              </div>
+              <a
+                key={i}
+                href={social.link}
+                className="text-gray-600 hover:text-blue-600 transition"
+              >
+                {social.icon}
+              </a>
             ))}
           </div>
         </div>

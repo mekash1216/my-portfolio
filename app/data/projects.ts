@@ -13,7 +13,7 @@ export const projects = [
     tech: "Angular, .NET, SQL Server",
     description:
       "A system for managing clinic operations, patient records, appointments, and staff management.",
-    image: "/images/projects/clinic.jpg",
+    image: "/images/projects/clinic1.jpg",
     link: "/projects",
   },
   {
